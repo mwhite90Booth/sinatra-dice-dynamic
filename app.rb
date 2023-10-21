@@ -5,50 +5,16 @@ get("/") do
   erb(:homepage)
 end
 
-get("/dice/2/6") do
+get("/dice/:num_dice/:dice_sides") do
+  
+  @num_dice = params.fetch("num_dice").to_i
+  @dice_sides = params.fetch("dice_sides").to_i
   @rolls = []
 
-  2.times do
-    die = rand(1..6)
-
+  @num_dice.times do
+    die = rand(1..@dice_sides)
     @rolls.push(die)
   end
 
-  erb(:two_six)
-end
-
-get("/dice/2/10") do
-  @rolls = []
-
-  2.times do
-    die = rand(1..10)
-
-    @rolls.push(die)
-  end
-
-  erb(:two_ten)
-end
-
-get("/dice/1/20") do
-  @rolls = []
-
-  1.times do
-    die = rand(1..20)
-
-    @rolls.push(die)
-  end
-
-  erb(:one_twenty)
-end
-
-get("/dice/5/4") do
-  @rolls = []
-
-  5.times do
-    die = rand(1..4)
-
-    @rolls.push(die)
-  end
-
-  erb(:five_four)
+  erb(:dice_rolls)
 end
